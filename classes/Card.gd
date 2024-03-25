@@ -8,17 +8,30 @@ class_name Card
 
 @export var accented : bool
 
+var rotoffset = 0
+var xoffset = 0
+var yoffset = 0
+var scl = 1:
+	set(value):
+		Global.tmpv1[0] = value
+		Global.tmpv1[1] = value
+		scale = Global.tmpv1
+		scl = value
+
 # Ranges from 0-1.
 var flip = 0
-# Used by card drawning.
-var flipScl : float: 
-	get: return Utilities.smooth_interp(flip) * 2 - 1.0
 var flipped = true
 
 # Ranges from 0-1.
 var hover = 0
 var hovering = false
 
+signal hovered(card)
+signal unhovered(card)
+
+# Used by card drawning.
+var flipScl : float: 
+	get: return Utilities.smooth_interp(flip) * 2 - 1.0
 
 func _process(delta):
 	if glyph1 == "empty": glyph1 = Settings.random_glyph().glyph_name
@@ -47,7 +60,7 @@ func _draw():
 	if(Settings.game_theme): Settings.game_theme.draw_card(self, 0, h * -200, 0, 1 + (h * 0.1))
 
 func _on_mouse_entered():
-	hovering = true
+	hovered.emit(self)
 
 func _on_mouse_exited():
-	hovering = false
+	unhovered.emit(self)

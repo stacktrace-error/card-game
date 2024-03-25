@@ -27,15 +27,15 @@ func register_glyph(glyph):
 	
 	print(byRarity)
 
-func get_glyph(name):
+func get_glyph(_name):
 	var g = Global.GLYPH_EMPTY
 	for i in glyphs:
-		if i.glyph_name == name:
+		if i.glyph_name == _name:
 			g = i
 	return g
 
-func get_glyph_tex(name):
-	var g = get_glyph(name)
+func get_glyph_tex(_name):
+	var g = get_glyph(_name)
 	return g.texture
 
 func random_glyph():

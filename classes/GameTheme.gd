@@ -11,16 +11,16 @@ var vec = Global.tmpv1
 var trns = Transform2D()
 
 #region required override
-func draw_card_front(c, xoffset, yoffset, rotoffset, scale):
+func draw_card_front(_c, _xoffset, _yoffset, _rotoffset, _scale):
 	pass
 
-func draw_card_back(c, xoffset, yoffset, rotoffset, scale):
+func draw_card_back(_c, _xoffset, _yoffset, _rotoffset, _scale):
 	pass
 
 func draw_background():
 	pass
 
-func get_glyph_tex(name):
+func get_glyph_tex(_name):
 	pass
 #endregion
 

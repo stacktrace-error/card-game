@@ -15,7 +15,7 @@ class_name Glyph
 
 var texture : Texture2D
 
-func _process(delta):
+func _process(_delta):
 	if not texture: texture = Settings.game_theme.get_glyph_tex(glyph_name)
 
 func _ready():

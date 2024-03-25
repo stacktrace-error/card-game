@@ -23,8 +23,8 @@ func draw_card_back(c, xoffset, yoffset, rotoffset, scale):
 	transform(c, xoffset, yoffset, rotoffset, scale)
 	c.draw_texture(back, Global.CARD_DRAW_OFFSET, Color.WHITE)
 
-func get_glyph_tex(name):
-	return load_tex("glyphs/glyph-" + name)
+func get_glyph_tex(_name):
+	return load_tex("glyphs/glyph-" + _name)
 
 func load_tex(stri):
 	return load("res://modlater/assets/sprites/" + stri + ".png")

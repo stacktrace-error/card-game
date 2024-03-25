@@ -1,5 +1,6 @@
-[gd_scene load_steps=4 format=3 uid="uid://c3arq2le0b155"]
+[gd_scene load_steps=5 format=3 uid="uid://c3arq2le0b155"]
 
+[ext_resource type="Script" path="res://classes/Hand.gd" id="2_eaoth"]
 [ext_resource type="PackedScene" uid="uid://3xjapjmocvbc" path="res://modlater/content/base_content.tscn" id="2_shf7k"]
 [ext_resource type="Script" path="res://classes/Card.gd" id="2_yoxos"]
 
@@ -11,28 +12,32 @@ size = Vector2(822, 1122)
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(0.2, 0.2)
 
-[node name="card" type="Area2D" parent="."]
-monitoring = false
-monitorable = false
-script = ExtResource("2_yoxos")
-accented = true
+[node name="BaseContent" parent="." instance=ExtResource("2_shf7k")]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="card"]
-shape = SubResource("RectangleShape2D_e73q2")
+[node name="Hand" type="Node2D" parent="."]
+script = ExtResource("2_eaoth")
 
-[node name="card2" type="Area2D" parent="."]
+[node name="card2" type="Area2D" parent="Hand"]
 position = Vector2(-976, -440)
 monitoring = false
 monitorable = false
 script = ExtResource("2_yoxos")
 accented = true
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="card2"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hand/card2"]
 shape = SubResource("RectangleShape2D_e73q2")
 
-[node name="BaseContent" parent="." instance=ExtResource("2_shf7k")]
+[node name="card" type="Area2D" parent="Hand"]
+monitoring = false
+monitorable = false
+script = ExtResource("2_yoxos")
+accented = true
 
-[connection signal="mouse_entered" from="card" to="card" method="_on_mouse_entered"]
-[connection signal="mouse_exited" from="card" to="card" method="_on_mouse_exited"]
-[connection signal="mouse_entered" from="card2" to="card2" method="_on_mouse_entered"]
-[connection signal="mouse_exited" from="card2" to="card2" method="_on_mouse_exited"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hand/card"]
+shape = SubResource("RectangleShape2D_e73q2")
+
+[connection signal="child_entered_tree" from="Hand" to="Hand" method="_on_child_entered_tree"]
+[connection signal="mouse_entered" from="Hand/card2" to="Hand/card2" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="Hand/card2" to="Hand/card2" method="_on_mouse_exited"]
+[connection signal="mouse_entered" from="Hand/card" to="Hand/card" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="Hand/card" to="Hand/card" method="_on_mouse_exited"]
