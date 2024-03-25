@@ -39,7 +39,7 @@ func transform(c, xoffset, yoffset, rotoffset, scale):
 	trns[2] = vec.rotated(rotoffset)
 	
 	# scale	
-	trns[0][0] = scale * c.flipScl
+	trns[0][0] = scale * abs(c.flipScl)
 	trns[0][1] = 0
 	trns[1][0] = 0
 	trns[1][1] = scale

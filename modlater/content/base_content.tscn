@@ -9,9 +9,16 @@ script = ExtResource("1_m02wh")
 [node name="GlyphTri" type="Node" parent="."]
 script = ExtResource("2_p0o3r")
 glyph_name = "tri"
+rarity = 1
 allow_autogen = true
 
 [node name="GlyphSquare" type="Node" parent="."]
 script = ExtResource("2_p0o3r")
 glyph_name = "square"
+allow_autogen = true
+
+[node name="GlyphLine" type="Node" parent="."]
+script = ExtResource("2_p0o3r")
+glyph_name = "line"
+rarity = 2
 allow_autogen = true

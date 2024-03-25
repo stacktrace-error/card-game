@@ -5,7 +5,7 @@ var game_theme : GameTheme
 
 var glyphs = Array()
 var byRarity = [[]]
-var rarityChances = [80, 20] # TODO this should probably be configurable or have a changable formula?
+var rarityChances = [70, 20, 10] # TODO this should probably be configurable or have a changable formula?
 
 # TODO move to somewhere that is saved.
 var last_theme = "default"
@@ -20,8 +20,8 @@ func register_glyph(glyph):
 	
 	if(glyph.allow_autogen):
 		var v = glyph.rarity
-		if v > glyphs.size(): byRarity.resize(v)
-			
+		if v >= byRarity.size(): byRarity.resize(v + 1)
+		
 		if not byRarity[v]: byRarity[v] = Array()
 		byRarity[v].append(glyph)
 	
@@ -41,14 +41,22 @@ func get_glyph_tex(_name):
 func random_glyph():
 	var g = Global.GLYPH_EMPTY
 	var a = 0
+	
+	# advance upward to figure out the tier, example:
+	# 	rand is 95, chances are 70/30
+	# 	70 is lower than 95, therefore out of the range of the first tier
+	# 	advance 30
+	# 	100 is higher than 95, select this tier
 	while a < 25 and g == Global.GLYPH_EMPTY:
-		var rand = randf_range(0, 100) # Gets a random number up to 100
+		var rand = randf_range(0, 100)
 		var counter = 0.0
 		for i in byRarity.size():
+			counter += rarityChances[i] #advance by next tier's chance
+			print(counter)
 			if counter > rand:
-				counter += rarityChances[i] # then moves through the tiers
-			else:
-				if byRarity[i]: g = byRarity[i].pick_random() # to see which tier's range it hit
+				#print(str("final: ", counter, " rand: ", rand))
+				if byRarity[i]: g = byRarity[i].pick_random() #pick current tier if advanced high enough
 				break
 		a += 1
+		if a == 25: print("random_glyph() has hit 25 reroll cap.")
 	return g
