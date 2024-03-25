@@ -3,8 +3,8 @@ class_name Card
 
 @export var glyph1 = "empty"
 @export var glyph2 = "empty"
-@export var color1 : int
-@export var color2 : int
+@export var color1 = -100
+@export var color2 = -100
 
 @export var accented : bool
 
@@ -36,8 +36,8 @@ var flipScl : float:
 func _process(delta):
 	if glyph1 == "empty": glyph1 = Settings.random_glyph().glyph_name
 	if glyph2 == "empty": glyph2 = Settings.random_glyph().glyph_name
-	if not color1: color1 = randi_range(0, 3)
-	if not color2: color2 = randi_range(0, 3)
+	if color1 == -100: color1 = randi_range(0, 3)
+	if color2 == -100: color2 = randi_range(0, 3)
 	
 	if(flipped):
 		if(flip < 0.99): flip += delta * 3

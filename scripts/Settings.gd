@@ -42,7 +42,7 @@ func random_glyph():
 	var g = Global.GLYPH_EMPTY
 	var a = 0
 	
-	# advance upward to figure out the tier, example:
+	# INFO Advance upward to figure out the tier, example:
 	# 	rand is 95, chances are 70/30
 	# 	70 is lower than 95, therefore out of the range of the first tier
 	# 	advance 30
@@ -52,9 +52,7 @@ func random_glyph():
 		var counter = 0.0
 		for i in byRarity.size():
 			counter += rarityChances[i] #advance by next tier's chance
-			print(counter)
 			if counter > rand:
-				#print(str("final: ", counter, " rand: ", rand))
 				if byRarity[i]: g = byRarity[i].pick_random() #pick current tier if advanced high enough
 				break
 		a += 1

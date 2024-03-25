@@ -1,7 +1,7 @@
 extends Node2D
 class_name Hand
 
-signal play(card)
+signal attempt_play(player, card)
 
 var hovered_card : Card:
 	set(value):
@@ -9,14 +9,41 @@ var hovered_card : Card:
 		if value: value.hovering = true
 		hovered_card = value
 
+var played_card : Card
+
+var width = 4000.0:
+	get: return width if get_child_count() > 1 else 0
+
+var spacing : float:
+	get: return width / (get_child_count() - 1)
+
 
 func _input(event):
 	if(hovered_card and event.is_action_pressed("confirm")):
-		var log = [0, 0, 0]
-		for i in 1000:
-			var g = Settings.random_glyph()
-			log[g.rarity] += 1
-		print(log)
+		pass
+
+func _process(_delta):
+	var cards = get_children()
+	for i in cards.size():
+		Global.tmpv1[0] = -(width * 0.5) + (spacing * i)
+		cards[i].position = Global.tmpv1.rotated(global_rotation)
+
+func play(card):
+	if not played_card:
+		played_card = card
+		attempt_play.emit(self, card)
+
+func finish_play(card, succeeded):
+	if succeeded and played_card == card:
+		
+	played_card = null
+
+
+func _on_tree_entered():
+	Global.hands.append(self)
+
+func _on_tree_exited():
+	
 
 
 func hover(card):
