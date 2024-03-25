@@ -1,0 +1,40 @@
+[gd_scene load_steps=6 format=3 uid="uid://c3arq2le0b155"]
+
+[ext_resource type="Texture2D" uid="uid://d37paven6nx7e" path="res://modlater/assets/sprites/64.png" id="2_kwct5"]
+[ext_resource type="Script" path="res://modlater/content/DefaultTheme.gd" id="2_ky33j"]
+[ext_resource type="Script" path="res://classes/Card.gd" id="2_yoxos"]
+[ext_resource type="Script" path="res://classes/Glyph.gd" id="4_1f4i5"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_e73q2"]
+size = Vector2(822, 1122)
+
+[node name="game" type="Node2D"]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(0.2, 0.2)
+
+[node name="card" type="Area2D" parent="."]
+script = ExtResource("2_yoxos")
+glyph1 = "basic"
+glyph2 = "basic"
+color1 = 3
+color2 = 2
+accented = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="card"]
+shape = SubResource("RectangleShape2D_e73q2")
+
+[node name="DefaultTheme" type="Node" parent="."]
+script = ExtResource("2_ky33j")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_kwct5")
+
+[node name="GlyphBasic" type="Node" parent="."]
+script = ExtResource("4_1f4i5")
+glyph_name = "basic"
+rarity = null
+value = null
+allow_autogen = null
+force_full_card = null
+force_color = null
