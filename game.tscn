@@ -4,113 +4,30 @@
 [ext_resource type="PackedScene" uid="uid://3xjapjmocvbc" path="res://modlater/content/base_content.tscn" id="2_shf7k"]
 [ext_resource type="Script" path="res://classes/Card.gd" id="2_yoxos"]
 [ext_resource type="Texture2D" uid="uid://d37paven6nx7e" path="res://modlater/assets/sprites/64.png" id="4_4t2dx"]
+[ext_resource type="Script" path="res://classes/Game.gd" id="5_fk682"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_e73q2"]
-size = Vector2(822, 1122)
-
-[node name="game" type="Node2D"]
+[node name="Game" type="Node2D"]
+script = ExtResource("5_fk682")
 
 [node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(0, 904)
 zoom = Vector2(0.2, 0.2)
 
 [node name="BaseContent" parent="." instance=ExtResource("2_shf7k")]
 
 [node name="Hand" type="Node2D" parent="."]
+position = Vector2(0, 1744)
 script = ExtResource("2_eaoth")
 
 [node name="card2" type="Area2D" parent="Hand"]
-position = Vector2(-976, -440)
 monitoring = false
 monitorable = false
 script = ExtResource("2_yoxos")
 accented = true
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Hand/card2"]
-shape = SubResource("RectangleShape2D_e73q2")
-
-[node name="card3" type="Area2D" parent="Hand"]
-position = Vector2(-976, -440)
-monitoring = false
-monitorable = false
-script = ExtResource("2_yoxos")
-accented = true
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Hand/card3"]
-shape = SubResource("RectangleShape2D_e73q2")
-
-[node name="card4" type="Area2D" parent="Hand"]
-position = Vector2(-976, -440)
-monitoring = false
-monitorable = false
-script = ExtResource("2_yoxos")
-accented = true
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Hand/card4"]
-shape = SubResource("RectangleShape2D_e73q2")
-
-[node name="card5" type="Area2D" parent="Hand"]
-position = Vector2(-976, -440)
-monitoring = false
-monitorable = false
-script = ExtResource("2_yoxos")
-accented = true
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Hand/card5"]
-shape = SubResource("RectangleShape2D_e73q2")
-
-[node name="card" type="Area2D" parent="Hand"]
-monitoring = false
-monitorable = false
-script = ExtResource("2_yoxos")
-accented = true
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Hand/card"]
-shape = SubResource("RectangleShape2D_e73q2")
-
-[node name="card6" type="Area2D" parent="Hand"]
-monitoring = false
-monitorable = false
-script = ExtResource("2_yoxos")
-accented = true
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Hand/card6"]
-shape = SubResource("RectangleShape2D_e73q2")
-
-[node name="card7" type="Area2D" parent="Hand"]
-monitoring = false
-monitorable = false
-script = ExtResource("2_yoxos")
-accented = true
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Hand/card7"]
-shape = SubResource("RectangleShape2D_e73q2")
-
-[node name="card8" type="Area2D" parent="Hand"]
-monitoring = false
-monitorable = false
-script = ExtResource("2_yoxos")
-accented = true
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Hand/card8"]
-shape = SubResource("RectangleShape2D_e73q2")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("4_4t2dx")
 
-[connection signal="child_entered_tree" from="Hand" to="Hand" method="_on_child_entered_tree"]
-[connection signal="mouse_entered" from="Hand/card2" to="Hand/card2" method="_on_mouse_entered"]
-[connection signal="mouse_exited" from="Hand/card2" to="Hand/card2" method="_on_mouse_exited"]
-[connection signal="mouse_entered" from="Hand/card3" to="Hand/card3" method="_on_mouse_entered"]
-[connection signal="mouse_exited" from="Hand/card3" to="Hand/card3" method="_on_mouse_exited"]
-[connection signal="mouse_entered" from="Hand/card4" to="Hand/card4" method="_on_mouse_entered"]
-[connection signal="mouse_exited" from="Hand/card4" to="Hand/card4" method="_on_mouse_exited"]
-[connection signal="mouse_entered" from="Hand/card5" to="Hand/card5" method="_on_mouse_entered"]
-[connection signal="mouse_exited" from="Hand/card5" to="Hand/card5" method="_on_mouse_exited"]
-[connection signal="mouse_entered" from="Hand/card" to="Hand/card" method="_on_mouse_entered"]
-[connection signal="mouse_exited" from="Hand/card" to="Hand/card" method="_on_mouse_exited"]
-[connection signal="mouse_entered" from="Hand/card6" to="Hand/card6" method="_on_mouse_entered"]
-[connection signal="mouse_exited" from="Hand/card6" to="Hand/card6" method="_on_mouse_exited"]
-[connection signal="mouse_entered" from="Hand/card7" to="Hand/card7" method="_on_mouse_entered"]
-[connection signal="mouse_exited" from="Hand/card7" to="Hand/card7" method="_on_mouse_exited"]
-[connection signal="mouse_entered" from="Hand/card8" to="Hand/card8" method="_on_mouse_entered"]
-[connection signal="mouse_exited" from="Hand/card8" to="Hand/card8" method="_on_mouse_exited"]
+[connection signal="child_entered_tree" from="." to="." method="_on_child_entered_tree"]
+[connection signal="child_exiting_tree" from="." to="." method="_on_child_exiting_tree"]
+[connection signal="ready" from="." to="." method="_on_ready"]

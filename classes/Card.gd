@@ -1,43 +1,40 @@
 extends Area2D
 class_name Card
 
-@export var glyph1 = "empty"
-@export var glyph2 = "empty"
-@export var color1 = -100
-@export var color2 = -100
+signal hovered(card)
+signal unhovered(card)
+
+@export var glyphs = ["empty", "empty"]
+@export var colors = [-1, -1]
 
 @export var accented : bool
 
-var rotoffset = 0
-var xoffset = 0
-var yoffset = 0
-var scl = 1:
+@export var scl = 1:
 	set(value):
 		Global.tmpv1[0] = value
 		Global.tmpv1[1] = value
 		scale = Global.tmpv1
 		scl = value
 
-# Ranges from 0-1.
-var flip = 0
-var flipped = true
+var xoffset = 0
+var yoffset = 0
+var rotoffset = 0
+var scloffset = 0
 
-# Ranges from 0-1.
-var hover = 0
+var flipped = true
 var hovering = false
 
-signal hovered(card)
-signal unhovered(card)
+# Ranges from 0-1.
+var flip = 0
+var hover = 0
 
 # Used by card drawning.
 var flipScl : float: 
 	get: return Utilities.smooth_interp(flip) * 2 - 1.0
 
 func _process(delta):
-	if glyph1 == "empty": glyph1 = Settings.random_glyph().glyph_name
-	if glyph2 == "empty": glyph2 = Settings.random_glyph().glyph_name
-	if color1 == -100: color1 = randi_range(0, 3)
-	if color2 == -100: color2 = randi_range(0, 3)
+	for i in 2: if glyphs[i] == "empty": glyphs[i] = Settings.random_glyph().glyph_name
+	for i in 2: if colors[i] < 0: colors[i] = randi_range(0, 3)
 	
 	if(flipped):
 		if(flip < 0.99): flip += delta * 3
@@ -57,7 +54,12 @@ func _process(delta):
 
 func _draw():
 	var h = Utilities.smooth_interp(hover)
-	if(Settings.game_theme): Settings.game_theme.draw_card(self, 0, h * -200, 0, 1 + (h * 0.1))
+	if(Settings.game_theme): Settings.game_theme.draw_card(self, xoffset, yoffset, rotoffset, scl + scloffset)
+
+func _ready():
+	add_child(Global.CARD_COLLISION.duplicate())
+	mouse_entered.connect(_on_mouse_entered)
+	mouse_exited.connect(_on_mouse_exited)
 
 func _on_mouse_entered():
 	hovered.emit(self)

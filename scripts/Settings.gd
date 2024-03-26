@@ -24,8 +24,6 @@ func register_glyph(glyph):
 		
 		if not byRarity[v]: byRarity[v] = Array()
 		byRarity[v].append(glyph)
-	
-	print(byRarity)
 
 func get_glyph(_name):
 	var g = Global.GLYPH_EMPTY

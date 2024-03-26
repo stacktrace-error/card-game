@@ -33,29 +33,29 @@ func load_tex(stri):
 #region pain
 func card_colors(c, xoffset, yoffset, rotoffset, scale):
 	transform(c, xoffset, yoffset, rotoffset, scale)
-	card_atlas_at(card, c.color1, 1 if c.accented else 0)
+	card_atlas_at(card, c.colors[0], 1 if c.accented else 0)
 	c.draw_texture(card, Global.CARD_DRAW_OFFSET, Color.WHITE)
 	
 	transform(c, xoffset, yoffset, rotoffset + PI, scale)
-	card_atlas_at(card, c.color2, 1 if c.accented else 0)
+	card_atlas_at(card, c.colors[1], 1 if c.accented else 0)
 	c.draw_texture(card, Global.CARD_DRAW_OFFSET, Color.WHITE)
 
 func card_colorblinds(c, xoffset, yoffset, rotoffset, scale):
 	transform(c, xoffset, yoffset, rotoffset, scale)
-	card_atlas_at(colorblind, c.color1, 0)
+	card_atlas_at(colorblind, c.colors[0], 0)
 	c.draw_texture(colorblind, Global.CARD_DRAW_OFFSET, Color.WHITE)
 	
 	transform(c, xoffset, yoffset, rotoffset + PI, scale)
-	card_atlas_at(colorblind, c.color2, 0)
+	card_atlas_at(colorblind, c.colors[1], 0)
 	c.draw_texture(colorblind, Global.CARD_DRAW_OFFSET, Color.WHITE)
 
 func card_glyphs(c, xoffset, yoffset, rotoffset, scale):
 	var g
 	transform(c, xoffset, yoffset, rotoffset, scale)
-	g = Settings.get_glyph_tex(c.glyph1)
+	g = Settings.get_glyph_tex(c.glyphs[0])
 	c.draw_texture(g, Global.CARD_DRAW_OFFSET, Color.WHITE)
 	
 	transform(c, xoffset, yoffset, rotoffset + PI, scale)
-	g = Settings.get_glyph_tex(c.glyph2)
+	g = Settings.get_glyph_tex(c.glyphs[1])
 	c.draw_texture(g, Global.CARD_DRAW_OFFSET, Color.WHITE)
 #endregion

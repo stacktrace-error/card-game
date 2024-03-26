@@ -12,6 +12,7 @@ class_name Glyph
 @export var force_full_card = false
 # force the color on affected halves to be this one. This takes full cards into account.
 @export var force_color : int
+@export var force_accents = false
 
 var texture : Texture2D
 
