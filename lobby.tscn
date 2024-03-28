@@ -1,0 +1,50 @@
+[gd_scene load_steps=7 format=3 uid="uid://d00tqu2sarqua"]
+
+[ext_resource type="Script" path="res://classes/game/Menu.gd" id="1_rta70"]
+[ext_resource type="Script" path="res://DebugCam.gd" id="2_bq2l7"]
+[ext_resource type="Script" path="res://classes/game/Hand.gd" id="3_eopgv"]
+[ext_resource type="Script" path="res://classes/game/Card.gd" id="4_u4qu2"]
+[ext_resource type="Script" path="res://classes/glyphs/Glyph.gd" id="5_gngho"]
+[ext_resource type="Script" path="res://classes/glyphs/ChangeSceneEffect.gd" id="6_if06t"]
+
+[node name="Menu" type="Node2D"]
+script = ExtResource("1_rta70")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(0, 904)
+zoom = Vector2(0.2, 0.2)
+script = ExtResource("2_bq2l7")
+
+[node name="Hand" type="Node2D" parent="."]
+position = Vector2(0, 1744)
+script = ExtResource("3_eopgv")
+
+[node name="Card" type="Area2D" parent="Hand"]
+script = ExtResource("4_u4qu2")
+flip = 1
+
+[node name="GlyphStartMatch" type="Node" parent="Hand/Card"]
+script = ExtResource("5_gngho")
+glyph_name = "start-match"
+force_full_card = true
+force_color = 4
+force_accents = true
+
+[node name="Node" type="Node" parent="Hand/Card/GlyphStartMatch"]
+script = ExtResource("6_if06t")
+change_to = "lobby"
+
+[node name="Card2" type="Area2D" parent="Hand"]
+script = ExtResource("4_u4qu2")
+flip = 1
+
+[node name="GlyphBack" type="Node" parent="Hand/Card2"]
+script = ExtResource("5_gngho")
+glyph_name = "back"
+force_full_card = true
+force_color = 4
+force_accents = true
+
+[node name="Node" type="Node" parent="Hand/Card2/GlyphBack"]
+script = ExtResource("6_if06t")
+change_to = "mainmenu"

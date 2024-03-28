@@ -1,28 +1,27 @@
-[gd_scene load_steps=6 format=3 uid="uid://d0dio6p25wj0a"]
+[gd_scene load_steps=7 format=3 uid="uid://d0dio6p25wj0a"]
 
 [ext_resource type="Script" path="res://classes/game/Menu.gd" id="1_p6bx2"]
 [ext_resource type="Script" path="res://classes/game/Card.gd" id="2_7oyre"]
 [ext_resource type="Script" path="res://classes/game/Hand.gd" id="2_qxj7e"]
 [ext_resource type="Script" path="res://classes/glyphs/Glyph.gd" id="3_1jvvh"]
 [ext_resource type="Script" path="res://classes/glyphs/ChangeSceneEffect.gd" id="5_ese8v"]
+[ext_resource type="Script" path="res://DebugCam.gd" id="6_qe7ww"]
 
 [node name="Menu" type="Node2D"]
 script = ExtResource("1_p6bx2")
 
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(0, 904)
+zoom = Vector2(0.2, 0.2)
+script = ExtResource("6_qe7ww")
+
 [node name="Hand" type="Node2D" parent="."]
+position = Vector2(0, 1744)
 script = ExtResource("2_qxj7e")
-
-[node name="Card2" type="Area2D" parent="Hand"]
-script = ExtResource("2_7oyre")
-
-[node name="GlyphJoinLobby" type="Node" parent="Hand/Card2"]
-script = ExtResource("3_1jvvh")
-
-[node name="Node" type="Node" parent="Hand/Card2/GlyphJoinLobby"]
-script = ExtResource("5_ese8v")
 
 [node name="Card" type="Area2D" parent="Hand"]
 script = ExtResource("2_7oyre")
+flip = 1
 
 [node name="GlyphCreateLobby" type="Node" parent="Hand/Card"]
 script = ExtResource("3_1jvvh")
@@ -32,4 +31,19 @@ force_color = 4
 force_accents = true
 
 [node name="Node" type="Node" parent="Hand/Card/GlyphCreateLobby"]
+script = ExtResource("5_ese8v")
+change_to = "lobby"
+
+[node name="Card2" type="Area2D" parent="Hand"]
+script = ExtResource("2_7oyre")
+flip = 1
+
+[node name="GlyphJoinLobby" type="Node" parent="Hand/Card2"]
+script = ExtResource("3_1jvvh")
+glyph_name = "join-lobby"
+force_full_card = true
+force_color = 4
+force_accents = true
+
+[node name="Node" type="Node" parent="Hand/Card2/GlyphJoinLobby"]
 script = ExtResource("5_ese8v")

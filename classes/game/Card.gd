@@ -30,6 +30,10 @@ var flipScl : float:
 var hov : float:
 	get: return Utilities.smooth_interp(hover)
 
+
+func play():
+	for i in 2: get_child(i).trigger([])
+
 func _process(delta):
 	if(hovering):
 		if(hover < 0.99): hover += delta * 6
@@ -37,7 +41,6 @@ func _process(delta):
 	else:
 		if(hover > 0.01): hover -= delta * 6
 		else: hover = 0
-	
 	queue_redraw()
 
 func reset_offsets():
@@ -56,17 +59,20 @@ func _draw():
 	if(Settings.game_theme): Settings.game_theme.draw_card(self, xoffset, yoffset, rotoffset, scl + scloffset)
 
 func _ready():
-	var g = Settings.random_glyph()
-	if get_child_count(): g = get_child(0)
+	if not get_children():
+		var g = Settings.random_glyph()
+		if g.force_full_card:
+			add_child(g.duplicate())
+		else:
+			var m = [Settings.random_glyph(), g]
+			m.sort_custom(func(a, b): return a.value > b.value)
+			for i in 2: add_child(m[i].duplicate())
 	
-	if g.force_full_card:
-		add_child(g.duplicate())
-		add_child(Global.GLYPH_EMPTY.duplicate())
-	else:
-		var m = [Settings.random_glyph(), g]
-		m.sort_custom(func(a, b): return a.value > b.value)
-		for i in 2: add_child(m[i].duplicate())
-		
+	if get_child_count() == 1:
+		var b = Global.GLYPH_EMPTY.duplicate()
+		b.color = get_child(0).color
+		add_child(b)
+	
 	add_child(Global.CARD_COLLISION.duplicate())
 	
 	tree_entered.connect(_on_tree_entered)

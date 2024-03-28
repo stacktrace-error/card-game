@@ -40,6 +40,6 @@ func allow_placement(parent:Card, other:Card):
 	return true
 
 func trigger(cards:Array):
-	if get_child_count():
+	if get_children():
 		for i in get_children():
 			i.trigger(cards)

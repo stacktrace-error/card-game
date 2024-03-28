@@ -7,8 +7,6 @@ var glyphs = Array()
 var byRarity = [[]]
 var rarityChances = [70, 20, 10] # TODO this should probably be configurable or have a changable formula?
 
-var starting_cards = 8
-
 # TODO move to somewhere that is saved.
 var last_theme = "default"
 # TODO glyph rarity overrides using a dictionary? could be used for disabling as well.

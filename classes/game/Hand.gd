@@ -86,7 +86,9 @@ func finish_play(pile:Game, card:Card, success:bool):
 	if success and played_card == card:
 		hovered_card = null
 		Global.SOUND_CARD_PlAY.play()
-		card.reparent(pile)
+		card.play()
+		if pile: card.reparent(pile)
+		else: card.free()
 	played_card = null
 #endregion
 

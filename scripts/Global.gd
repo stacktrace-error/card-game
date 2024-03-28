@@ -27,7 +27,6 @@ func add_sound(_name, volume):
 	sound.stream = load(_name)
 	sound.volume_db = volume
 	add_child(sound)
-	print(get_child(-1))
 	return get_child(-1)
 
 
