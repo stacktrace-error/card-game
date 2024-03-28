@@ -1,0 +1,30 @@
+[gd_scene load_steps=3 format=3 uid="uid://3xjapjmocvbc"]
+
+[ext_resource type="Script" path="res://classes/visual/GameTheme.gd" id="1_y6ihv"]
+[ext_resource type="Script" path="res://classes/glyphs/Glyph.gd" id="2_i8c6a"]
+
+[node name="BaseContent" type="Node"]
+script = ExtResource("1_y6ihv")
+
+[node name="GlyphTri" type="Node" parent="."]
+script = ExtResource("2_i8c6a")
+glyph_name = "tri"
+value = 1
+allow_autogen = true
+
+[node name="GlyphSquare" type="Node" parent="."]
+script = ExtResource("2_i8c6a")
+glyph_name = "square"
+allow_autogen = true
+
+[node name="GlyphLine" type="Node" parent="."]
+script = ExtResource("2_i8c6a")
+glyph_name = "line"
+allow_autogen = true
+
+[node name="GlyphStartMatch" type="Node" parent="."]
+script = ExtResource("2_i8c6a")
+glyph_name = "start-match"
+force_full_card = true
+force_color = 4
+force_accents = true
