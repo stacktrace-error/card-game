@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://buangjlw8ysnr"
-path="res://.godot/imported/glyph-line.png-03e361a425f2e02f0b98fc84d8cd22d2.ctex"
+uid="uid://dbjv3nqbn6266"
+path="res://.godot/imported/glyph-lobby-created.png-3253be8dc6c95bb24f0ea1fa9937eb0c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/glyphs/glyph-line.png"
-dest_files=["res://.godot/imported/glyph-line.png-03e361a425f2e02f0b98fc84d8cd22d2.ctex"]
+source_file="res://assets/sprites/glyphs/glyph-lobby-created.png"
+dest_files=["res://.godot/imported/glyph-lobby-created.png-3253be8dc6c95bb24f0ea1fa9937eb0c.ctex"]
 
 [params]
 

@@ -1,9 +1,8 @@
 extends Node2D
-class_name Hand
 
-signal attempt_play(hand, card)
+signal attempt_play(card)
 
-var to_draw = 0
+var to_draw = Array()
 
 var cards : Array
 var card_count : int
@@ -16,6 +15,7 @@ var hovered_card : Card:
 			Global.SOUND_CARD_HOVER.play()
 		hovered_card = value
 
+var draw_speed = 10
 var max_width = 5500.0
 var spacing = 350.0:
 	get: return min(spacing, 1000.0 if card_count < 2 else max_width / (card_count - 1))
@@ -25,10 +25,8 @@ var offset = 850.0:
 
 #region cards
 func _input(event):
-	if(hovered_card and event.is_action_pressed("confirm")):
-		play(hovered_card)
-	else: if(event.is_action_pressed("draw")):
-		to_draw += 1
+	if(hovered_card and event.is_action_pressed("confirm")): play(hovered_card)
+	else: if(event.is_action_pressed("draw")): draw_count(1)
 
 func _process(delta):
 	Global.tmpv1 = Vector2.ZERO
@@ -45,7 +43,7 @@ func _process(delta):
 			if c == hovered_card: Global.tmpv1[0] += offset
 			
 			# move current card
-			c.position = c.position.lerp(Global.tmpv1, delta * 10)
+			c.position = c.position.lerp(Global.tmpv1, delta * draw_speed)
 			c.yoffset = c.hov * -200
 			c.scloffset = c.hov * 0.1
 			
@@ -54,25 +52,31 @@ func _process(delta):
 			Global.tmpv1[1] = 0
 			if c == hovered_card: Global.tmpv1[0] += offset # must be added twice
 	
-	else: if card_count == 1: 
-		cards[0].position = cards[0].position.lerp(Global.tmpv1, delta * 10)
+	else: if card_count: 
+		cards[0].position = cards[0].position.lerp(Global.tmpv1, delta * draw_speed)
 		Global.tmpv1[0] = spacing
 	
 	# draw new cards
-	if not card_count == 0 and cards[-1].flip < 1:
-		cards[-1].flip += (delta * 2.5) 
+	if card_count and cards[-1].flip < 1: cards[-1].flip += (delta * draw_speed * 0.25) 
 	
-	else: if to_draw > 0:
-		var drawn = Card.new()
+	else: if not to_draw.is_empty():
+		var drawn = to_draw.pop_front()
+		if not drawn is Card: return
+		
 		Global.tmpv1[1] = 10000
 		drawn.position = Global.tmpv1
 		drawn.flip = -0.5
 		
 		add_child(drawn)
-		to_draw -= 1
 
-func _ready():
-	if get_parent() is Game: to_draw = get_parent().starting_hand
+func clear_cards():
+	for i in get_children(): i.call_deferred("free")
+	for i in to_draw: i.call_deferred("free")
+	to_draw.clear()
+
+func draw_count(count:int): if Global.game: for i in count: to_draw.append(Global.game.card())
+
+func draw_array(array:Array): to_draw.append_array(array)
 #endregion
 
 
@@ -80,38 +84,29 @@ func _ready():
 func play(card:Card):
 	if not played_card and card.flip > 0.99:
 		played_card = card
-		attempt_play.emit(self, card)
+		attempt_play.emit(card)
 
-func finish_play(pile:Game, card:Card, success:bool):
+func finish_play(card:Card, success:bool):
 	if success and played_card == card:
 		hovered_card = null
-		Global.SOUND_CARD_PlAY.play()
-		card.play()
-		if pile: card.reparent(pile)
-		else: card.free()
 	played_card = null
 #endregion
 
 
 #region hover bullshittery
-func hover(card):
-	hovered_card = card
-
-func unhover(card):
-	if hovered_card == card:
-		hovered_card = null
-
 func _init():
 	child_entered_tree.connect(_on_child_entered_tree)
 	child_exiting_tree.connect(_on_child_exiting_tree)
 
 func _on_child_entered_tree(node):
-	if node is Card:
-		node.hovered.connect(hover)
-		node.unhovered.connect(unhover)
+	node.hovered.connect(hover)
+	node.unhovered.connect(unhover)
 
 func _on_child_exiting_tree(node):
-	if node is Card:
-		node.hovered.disconnect(hover)
-		node.unhovered.disconnect(unhover)
+	node.hovered.disconnect(hover)
+	node.unhovered.disconnect(unhover)
+	
+func hover(card): hovered_card = card
+
+func unhover(card): if hovered_card == card: hovered_card = null
 #endregion

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bylo7i5w3vtgk"
-path="res://.godot/imported/glyph-create-lobby.png-f0e98ac7062b0a7786d061ef16ae67da.ctex"
+uid="uid://k8xcmh2tflx0"
+path="res://.godot/imported/glyph-lobby-joined.png-052547291b3d3cbe7550d8b3bc57d16d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/glyphs/glyph-create-lobby.png"
-dest_files=["res://.godot/imported/glyph-create-lobby.png-f0e98ac7062b0a7786d061ef16ae67da.ctex"]
+source_file="res://assets/sprites/glyphs/glyph-lobby-joined.png"
+dest_files=["res://.godot/imported/glyph-lobby-joined.png-052547291b3d3cbe7550d8b3bc57d16d.ctex"]
 
 [params]
 

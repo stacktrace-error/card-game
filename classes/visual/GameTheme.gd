@@ -13,7 +13,6 @@ var atlas2 = CardAtlas.new()
 var back : Texture2D
 
 # g
-var vec = Global.tmpv1
 var trns = Transform2D()
 
 
@@ -26,10 +25,10 @@ func _init():
 	Settings.game_theme = self
 
 func draw_card_front(c:Card, xoffset, yoffset, rotoffset, scale):
-	draw_halves(c, xoffset, yoffset, rotoffset, scale, atlas.at(c.get_color(0), 1 if c.accented else 0), atlas2.at(c.get_color(1), 1 if c.accented else 0))
-	draw_halves(c, xoffset, yoffset, rotoffset, scale, atlas.at(c.get_color(0), 2), atlas2.at(c.get_color(1), 2))
+	draw_halves(c, xoffset, yoffset, rotoffset, scale, atlas.at(c.colors(0), 1 if c.accented else 0), atlas2.at(c.colors(1), 1 if c.accented else 0))
+	draw_halves(c, xoffset, yoffset, rotoffset, scale, atlas.at(c.colors(0), 2), atlas2.at(c.colors(1), 2))
 	atlas.at(0, 0) # I do not know why I have to reset it here, but drawing 2 colorblinds at once breaks without it
-	draw_halves(c, xoffset, yoffset, rotoffset, scale, c.get_glyph(0).texture, c.get_glyph(1).texture)
+	draw_halves(c, xoffset, yoffset, rotoffset, scale, c.glyphs[0].texture, c.glyphs[1].texture)
 
 func draw_card_back(c:Card, xoffset, yoffset, rotoffset, scale):
 	transform(c, xoffset, yoffset, rotoffset, scale)
@@ -45,16 +44,17 @@ func get_glyph_tex(_name):
 #region helper functions
 func draw_halves(c, xoffset, yoffset, rotoffset, scale, tex1, tex2):
 	transform(c, xoffset, yoffset, rotoffset, scale)
-	c.draw_texture(tex1, Global.CARD_DRAW_OFFSET, Color.WHITE)
+	if tex1: c.draw_texture(tex1, Global.CARD_DRAW_OFFSET, Color.WHITE)
+	#else: print(tex1)
 	
 	transform(c, xoffset, yoffset, rotoffset + PI, scale)
-	c.draw_texture(tex2, Global.CARD_DRAW_OFFSET, Color.WHITE)
+	if tex2: c.draw_texture(tex2, Global.CARD_DRAW_OFFSET, Color.WHITE)
 
 func transform(c, xoffset, yoffset, rotoffset, scale):
 	# origin
-	vec[0] = xoffset
-	vec[1] = yoffset
-	trns[2] = vec.rotated(rotoffset)
+	Global.tmpv1[0] = xoffset
+	Global.tmpv1[1] = yoffset
+	trns[2] = Global.tmpv1.rotated(rotoffset)
 	
 	# scale	
 	trns[0][0] = scale * abs(c.flipScl)
@@ -74,8 +74,6 @@ func load_tex(stri):
 
 #region no touchy unless needed
 func draw_card(c:Card, xoffset, yoffset, rotoffset, scale):
-	if c.flip < 0.5:
-		draw_card_back(c, xoffset, yoffset, rotoffset, scale)
-	else:
-		draw_card_front(c, xoffset, yoffset, rotoffset, scale)
+	if c.flip < 0.5: draw_card_back(c, xoffset, yoffset, rotoffset, scale)
+	else: draw_card_front(c, xoffset, yoffset, rotoffset, scale)
 #endregion

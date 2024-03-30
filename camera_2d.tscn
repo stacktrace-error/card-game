@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://dy32p6db4rvhw"]
+
+[ext_resource type="Script" path="res://DebugCam.gd" id="1_dnmcp"]
+[ext_resource type="Script" path="res://playerlabel.gd" id="2_iodum"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_xucab"]
+line_spacing = 20.0
+font_size = 100
+
+[node name="Camera2D" type="Camera2D"]
+position = Vector2(0, 904)
+zoom = Vector2(0.2, 0.2)
+script = ExtResource("1_dnmcp")
+
+[node name="Label" type="Label" parent="."]
+offset_top = -1568.0
+offset_right = 40.0
+offset_bottom = -1545.0
+label_settings = SubResource("LabelSettings_xucab")
+script = ExtResource("2_iodum")

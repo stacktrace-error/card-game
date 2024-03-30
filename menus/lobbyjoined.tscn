@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://dx0fg22abudca"]
+
+[ext_resource type="Script" path="res://classes/game/Game.gd" id="1_yd8g4"]
+[ext_resource type="Script" path="res://lobbytext.gd" id="2_67tbq"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_ehr40"]
+line_spacing = 20.0
+font_size = 100
+
+[node name="Lobbyjoined" type="Node2D"]
+script = ExtResource("1_yd8g4")
+menu_name = "lobbyjoined"
+
+[node name="Label" type="Label" parent="."]
+offset_right = 40.0
+offset_bottom = 23.0
+label_settings = SubResource("LabelSettings_ehr40")
+script = ExtResource("2_67tbq")

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dmx4yhaou3sk6"
-path="res://.godot/imported/glyph-join-lobby.png-33618a68f54ad5f4cea178b33afb57ba.ctex"
+uid="uid://bwmqw3yntgp56"
+path="res://.godot/imported/glyph-join-ip.png-543633c6a36fa7d941471c2bc16b6b3f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/glyphs/glyph-join-lobby.png"
-dest_files=["res://.godot/imported/glyph-join-lobby.png-33618a68f54ad5f4cea178b33afb57ba.ctex"]
+source_file="res://assets/sprites/glyphs/glyph-join-ip.png"
+dest_files=["res://.godot/imported/glyph-join-ip.png-543633c6a36fa7d941471c2bc16b6b3f.ctex"]
 
 [params]
 

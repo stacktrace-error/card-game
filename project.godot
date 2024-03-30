@@ -11,16 +11,19 @@ config_version=5
 [application]
 
 config/name="cards"
-run/main_scene="res://mainmenu.tscn"
+run/main_scene="res://menus/mainmenu.tscn"
 config/features=PackedStringArray("4.2", "GL Compatibility")
-config/icon="res://icon.svg"
+config/icon="res://icon.png"
 
 [autoload]
 
 Settings="*res://scripts/Settings.gd"
 Global="*res://scripts/Global.gd"
-Utilities="*res://scripts/Utilities.gd"
 BaseContent="*res://assets/content/base_content.tscn"
+Multiplayer="*res://scripts/MultiplayerHandler.gd"
+Hand="*res://hand.tscn"
+Utilities="*res://scripts/Utilities.gd"
+Camera2d="*res://camera_2d.tscn"
 
 [display]
 
@@ -56,3 +59,4 @@ down={
 
 renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"
+environment/defaults/default_clear_color=Color(0.290196, 0.294118, 0.32549, 1)

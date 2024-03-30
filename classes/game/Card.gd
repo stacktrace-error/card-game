@@ -6,6 +6,8 @@ signal unhovered(card)
 
 @export var accented : bool
 
+@export var glyphs : Array
+
 @export var scl = 1:
 	set(value):
 		Global.tmpv1[0] = value
@@ -31,9 +33,6 @@ var hov : float:
 	get: return Utilities.smooth_interp(hover)
 
 
-func play():
-	for i in 2: get_child(i).trigger([])
-
 func _process(delta):
 	if(hovering):
 		if(hover < 0.99): hover += delta * 6
@@ -43,47 +42,32 @@ func _process(delta):
 		else: hover = 0
 	queue_redraw()
 
+func _init(gly1:String, gly2 = "empty", col1 = -1, col2 = -1):
+	glyphs = [Global.get_glyph(gly1).duplicate(), Global.get_glyph(gly2).duplicate()]
+	glyphs[0].color = col1
+	glyphs[1].color = col2
+	
+	glyphs.sort_custom(func(a, b): return a.value > b.value)
+	
+	for i in glyphs: i.initialize(self)
+
+func _ready():
+	add_child(Global.CARD_COLLISION.duplicate())
+	
+	tree_entered.connect(func(): reset_offsets())
+	mouse_entered.connect(func(): hovered.emit(self))
+	mouse_exited.connect(func(): unhovered.emit(self))
+
 func reset_offsets():
 	xoffset = 0
 	yoffset = 0
 	rotoffset = 0
 	scloffset = 0
 
-func get_glyph(index:int): #TODO
-	return get_child(index)
+func copy(): return new(glyphs[0].glyph_name, glyphs[1].glyph_name, colors(0), colors(1))
 
-func get_color(index:int):
-	return get_glyph(index).color
+func play(): for i in glyphs: i.trigger()
 
-func _draw():
-	if(Settings.game_theme): Settings.game_theme.draw_card(self, xoffset, yoffset, rotoffset, scl + scloffset)
+func colors(index:int): return glyphs[index].color
 
-func _ready():
-	if not get_children():
-		var g = Settings.random_glyph()
-		if g.force_full_card:
-			add_child(g.duplicate())
-		else:
-			var m = [Settings.random_glyph(), g]
-			m.sort_custom(func(a, b): return a.value > b.value)
-			for i in 2: add_child(m[i].duplicate())
-	
-	if get_child_count() == 1:
-		var b = Global.GLYPH_EMPTY.duplicate()
-		b.color = get_child(0).color
-		add_child(b)
-	
-	add_child(Global.CARD_COLLISION.duplicate())
-	
-	tree_entered.connect(_on_tree_entered)
-	mouse_entered.connect(_on_mouse_entered)
-	mouse_exited.connect(_on_mouse_exited)
-
-func _on_tree_entered():
-	reset_offsets()
-
-func _on_mouse_entered():
-	hovered.emit(self)
-
-func _on_mouse_exited():
-	unhovered.emit(self)
+func _draw(): if(Settings.game_theme): Settings.game_theme.draw_card(self, xoffset, yoffset, rotoffset, scl + scloffset)

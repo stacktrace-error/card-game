@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://buangjlw8ysnr"
-path="res://.godot/imported/glyph-line.png-03e361a425f2e02f0b98fc84d8cd22d2.ctex"
+uid="uid://c56qkemse1wdd"
+path="res://.godot/imported/glyph-back-join-ip.png-d336246f9ad1306e97c385ab477ddeb3.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/glyphs/glyph-line.png"
-dest_files=["res://.godot/imported/glyph-line.png-03e361a425f2e02f0b98fc84d8cd22d2.ctex"]
+source_file="res://assets/sprites/glyphs/glyph-back-join-ip.png"
+dest_files=["res://.godot/imported/glyph-back-join-ip.png-d336246f9ad1306e97c385ab477ddeb3.ctex"]
 
 [params]
 

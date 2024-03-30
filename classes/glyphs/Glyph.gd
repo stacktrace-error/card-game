@@ -15,31 +15,29 @@ class_name Glyph
 # ignores the placement restrictions of the other glyph on a card.
 @export var override_placement = false
 @export var force_accents = false
-
-var texture : Texture2D
+@export var texture : Texture2D # TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
 var color = -1
+var card : Card
 
 func _process(_delta):
 	if Settings.game_theme and not texture: texture = Settings.game_theme.get_glyph_tex(glyph_name)
 
 # These are both static and dynamic objects at once. I am mildly disgusted.
-func is_dynamic():
-	return get_parent() is Card
+func initialize(c:Card):
+	card = c
+	if force_color >= 0: color = force_color
+	else: if color < 0: color = randi_range(0, 3)
+	
+	if force_accents: card.accented = true
 
 func _ready():
-	if not is_dynamic():
-		Settings.register_glyph(self)
-		if(force_full_card): Settings.register_glyph(self) # this is the easiest way to counteract the halved chance of appearing
-	else:
-		if force_color >= 0: color = force_color
-		else: color = randi_range(0, 3)
-		
-		if force_accents: get_parent().accented = true
+	Global.register_glyph(self)
+	if(force_full_card): Global.register_glyph(self) # this is the easiest way to counteract the halved chance of appearing
 
 func allow_placement(parent:Card, other:Card):
 	return true
 
-func trigger(cards:Array):
+func trigger():
 	if get_children():
 		for i in get_children():
-			i.trigger(cards)
+			i.trigger()

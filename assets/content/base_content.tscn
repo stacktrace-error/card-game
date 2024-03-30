@@ -1,30 +1,160 @@
-[gd_scene load_steps=3 format=3 uid="uid://3xjapjmocvbc"]
+[gd_scene load_steps=17 format=3 uid="uid://3xjapjmocvbc"]
 
+[ext_resource type="Script" path="res://assets/content/content.gd" id="1_ib6uw"]
 [ext_resource type="Script" path="res://classes/visual/GameTheme.gd" id="1_y6ihv"]
 [ext_resource type="Script" path="res://classes/glyphs/Glyph.gd" id="2_i8c6a"]
+[ext_resource type="Script" path="res://classes/glyphs/ChangeSceneEffect.gd" id="3_2u8q6"]
+[ext_resource type="Texture2D" uid="uid://c5nudfanhyrua" path="res://assets/sprites/glyphs/glyph-tri.png" id="3_26rgh"]
+[ext_resource type="Script" path="res://classes/glyphs/MultiplayerEffect.gd" id="4_8f2qj"]
+[ext_resource type="Texture2D" uid="uid://br5hd4k3oig2x" path="res://assets/sprites/glyphs/glyph-square.png" id="4_nonrp"]
+[ext_resource type="Texture2D" uid="uid://buangjlw8ysnr" path="res://assets/sprites/glyphs/glyph-line.png" id="5_x5lgl"]
+[ext_resource type="Texture2D" uid="uid://dkogammqs2xhk" path="res://assets/sprites/glyphs/glyph-start-game.png" id="6_m3jo2"]
+[ext_resource type="Texture2D" uid="uid://bbbqyu12r0o33" path="res://assets/sprites/glyphs/glyph-create-ip.png" id="8_jmnad"]
+[ext_resource type="Texture2D" uid="uid://bwmqw3yntgp56" path="res://assets/sprites/glyphs/glyph-join-ip.png" id="9_bkxaa"]
+[ext_resource type="Texture2D" uid="uid://dp1iyfsjtoupv" path="res://assets/sprites/glyphs/glyph-back-main.png" id="10_5q8fc"]
+[ext_resource type="Texture2D" uid="uid://dlujlh3t8g4j" path="res://assets/sprites/glyphs/glyph-back-create-ip.png" id="11_f75cc"]
+[ext_resource type="Texture2D" uid="uid://dbjv3nqbn6266" path="res://assets/sprites/glyphs/glyph-lobby-created.png" id="13_bpgoa"]
+[ext_resource type="Texture2D" uid="uid://c56qkemse1wdd" path="res://assets/sprites/glyphs/glyph-back-join-ip.png" id="13_kolg0"]
+[ext_resource type="Texture2D" uid="uid://k8xcmh2tflx0" path="res://assets/sprites/glyphs/glyph-lobby-joined.png" id="14_k7wkr"]
 
 [node name="BaseContent" type="Node"]
-script = ExtResource("1_y6ihv")
+script = ExtResource("1_ib6uw")
 
 [node name="GlyphTri" type="Node" parent="."]
 script = ExtResource("2_i8c6a")
 glyph_name = "tri"
-value = 1
 allow_autogen = true
+texture = ExtResource("3_26rgh")
 
 [node name="GlyphSquare" type="Node" parent="."]
 script = ExtResource("2_i8c6a")
 glyph_name = "square"
 allow_autogen = true
+texture = ExtResource("4_nonrp")
 
 [node name="GlyphLine" type="Node" parent="."]
 script = ExtResource("2_i8c6a")
 glyph_name = "line"
 allow_autogen = true
+texture = ExtResource("5_x5lgl")
 
-[node name="GlyphStartMatch" type="Node" parent="."]
+[node name="GlyphStartGame" type="Node" parent="."]
 script = ExtResource("2_i8c6a")
-glyph_name = "start-match"
+glyph_name = "start-game"
 force_full_card = true
 force_color = 4
 force_accents = true
+texture = ExtResource("6_m3jo2")
+
+[node name="Node" type="Node" parent="GlyphStartGame"]
+script = ExtResource("3_2u8q6")
+all_players = true
+
+[node name="GlyphCreateIP" type="Node" parent="."]
+script = ExtResource("2_i8c6a")
+glyph_name = "create-ip"
+force_full_card = true
+force_color = 4
+force_accents = true
+texture = ExtResource("8_jmnad")
+
+[node name="Node" type="Node" parent="GlyphCreateIP"]
+script = ExtResource("3_2u8q6")
+change_to = "createip"
+all_players = null
+
+[node name="GlyphJoinIP" type="Node" parent="."]
+script = ExtResource("2_i8c6a")
+glyph_name = "join-ip"
+force_full_card = true
+force_color = 4
+force_accents = true
+texture = ExtResource("9_bkxaa")
+
+[node name="Node" type="Node" parent="GlyphJoinIP"]
+script = ExtResource("3_2u8q6")
+change_to = "joinip"
+all_players = null
+
+[node name="GlyphBackMain" type="Node" parent="."]
+script = ExtResource("2_i8c6a")
+glyph_name = "back-main"
+force_full_card = true
+force_color = 4
+force_accents = true
+texture = ExtResource("10_5q8fc")
+
+[node name="Node" type="Node" parent="GlyphBackMain"]
+script = ExtResource("3_2u8q6")
+change_to = "mainmenu"
+all_players = null
+
+[node name="GlyphBackCreateIP" type="Node" parent="."]
+script = ExtResource("2_i8c6a")
+glyph_name = "back-create-ip"
+force_full_card = true
+force_color = 4
+force_accents = true
+texture = ExtResource("11_f75cc")
+
+[node name="Node" type="Node" parent="GlyphBackCreateIP"]
+script = ExtResource("3_2u8q6")
+change_to = "createip"
+all_players = null
+
+[node name="Node2" type="Node" parent="GlyphBackCreateIP"]
+script = ExtResource("4_8f2qj")
+function = 2
+
+[node name="GlyphBackJoinIP" type="Node" parent="."]
+script = ExtResource("2_i8c6a")
+glyph_name = "back-join-ip"
+force_full_card = true
+force_color = 4
+force_accents = true
+texture = ExtResource("13_kolg0")
+
+[node name="Node" type="Node" parent="GlyphBackJoinIP"]
+script = ExtResource("3_2u8q6")
+change_to = "joingame"
+all_players = null
+
+[node name="Node2" type="Node" parent="GlyphBackJoinIP"]
+script = ExtResource("4_8f2qj")
+function = 3
+
+[node name="GlyphLobbyCreated" type="Node" parent="."]
+script = ExtResource("2_i8c6a")
+glyph_name = "lobby-created"
+force_full_card = true
+force_color = 4
+force_accents = true
+texture = ExtResource("13_bpgoa")
+
+[node name="Node" type="Node" parent="GlyphLobbyCreated"]
+script = ExtResource("3_2u8q6")
+change_to = "lobbycreated"
+all_players = null
+
+[node name="Node2" type="Node" parent="GlyphLobbyCreated"]
+script = ExtResource("4_8f2qj")
+
+[node name="GlyphLobbyJoined" type="Node" parent="."]
+script = ExtResource("2_i8c6a")
+glyph_name = "lobby-joined"
+force_full_card = true
+force_color = 4
+force_accents = true
+texture = ExtResource("14_k7wkr")
+
+[node name="Node" type="Node" parent="GlyphLobbyJoined"]
+script = ExtResource("3_2u8q6")
+change_to = "lobbyjoined"
+all_players = null
+
+[node name="Node2" type="Node" parent="GlyphLobbyJoined"]
+script = ExtResource("4_8f2qj")
+function = 1
+
+[node name="GameTheme" type="Node" parent="."]
+script = ExtResource("1_y6ihv")

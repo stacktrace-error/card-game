@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bnskd0vpr0tev"
-path="res://.godot/imported/glyph-start-match.png-014ab19ddb595123465dedfc32044cbc.ctex"
+uid="uid://dkogammqs2xhk"
+path="res://.godot/imported/glyph-start-game.png-242da3938181c012a10daebe6d531694.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/glyphs/glyph-start-match.png"
-dest_files=["res://.godot/imported/glyph-start-match.png-014ab19ddb595123465dedfc32044cbc.ctex"]
+source_file="res://assets/sprites/glyphs/glyph-start-game.png"
+dest_files=["res://.godot/imported/glyph-start-game.png-242da3938181c012a10daebe6d531694.ctex"]
 
 [params]
 

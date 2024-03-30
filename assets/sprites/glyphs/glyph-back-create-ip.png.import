@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bj0rpxj8by1n3"
-path="res://.godot/imported/glyph-back.png-8d0eb4d9d0663e72adbdbda2b35e18c1.ctex"
+uid="uid://dlujlh3t8g4j"
+path="res://.godot/imported/glyph-back-create-ip.png-ae773f8130541837da9d7b895bd5af26.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/glyphs/glyph-back.png"
-dest_files=["res://.godot/imported/glyph-back.png-8d0eb4d9d0663e72adbdbda2b35e18c1.ctex"]
+source_file="res://assets/sprites/glyphs/glyph-back-create-ip.png"
+dest_files=["res://.godot/imported/glyph-back-create-ip.png-ae773f8130541837da9d7b895bd5af26.ctex"]
 
 [params]
 
