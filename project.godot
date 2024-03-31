@@ -17,17 +17,21 @@ config/icon="res://icon.png"
 
 [autoload]
 
-Settings="*res://scripts/Settings.gd"
-Global="*res://scripts/Global.gd"
+Settings="*res://scripts/autoload/Settings.gd"
+Global="*res://scripts/autoload/Global.gd"
 BaseContent="*res://assets/content/base_content.tscn"
-Multiplayer="*res://scripts/MultiplayerHandler.gd"
+Multiplayer="*res://scripts/autoload/MultiplayerHandler.gd"
 Hand="*res://hand.tscn"
-Utilities="*res://scripts/Utilities.gd"
+Utilities="*res://scripts/autoload/Utilities.gd"
 Camera2d="*res://camera_2d.tscn"
 
 [display]
 
 window/vsync/vsync_mode=0
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/gut/plugin.cfg")
 
 [input]
 

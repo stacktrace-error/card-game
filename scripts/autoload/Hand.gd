@@ -26,7 +26,7 @@ var offset = 850.0:
 #region cards
 func _input(event):
 	if(hovered_card and event.is_action_pressed("confirm")): play(hovered_card)
-	else: if(event.is_action_pressed("draw")): draw_count(1)
+	if(event.is_action_pressed("draw")): draw_count(1)
 
 func _process(delta):
 	Global.tmpv1 = Vector2.ZERO
@@ -94,7 +94,7 @@ func finish_play(card:Card, success:bool):
 
 
 #region hover bullshittery
-func _init():
+func _ready():
 	child_entered_tree.connect(_on_child_entered_tree)
 	child_exiting_tree.connect(_on_child_exiting_tree)
 

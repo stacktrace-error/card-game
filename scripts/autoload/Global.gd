@@ -8,8 +8,8 @@ var CARD_COLLISION = CollisionShape2D.new()
 
 var GLYPH_EMPTY = Glyph.new()
 
-var SOUND_CARD_HOVER = add_sound("res://assets/sounds/noammo.ogg", 2)
-var SOUND_CARD_PlAY = add_sound("res://assets/sounds/click.ogg", 3)
+var SOUND_CARD_HOVER = add_sound("res://assets/sounds/noammo.ogg", 1)
+var SOUND_CARD_PlAY = add_sound("res://assets/sounds/click.ogg", 1.5)
 
 # Temporary vectors.
 var tmpv1 = Vector2()
@@ -62,12 +62,14 @@ func add_sound(_name, volume):
 	add_child(sound)
 	return get_child(-1)
 
+func card_from_rpc(c:Array):
+	return Card.new(c[0], c[1], c[2], c[3])
 
 func change_scene(_name, all_players = false):
 	if not all_players: deferred_change_scene.call_deferred(_name)
 	else: all_change_scene.rpc(_name)
 
-@rpc("call_local")
+@rpc("call_local", "any_peer")
 func all_change_scene(_name):
 	deferred_change_scene.call_deferred(_name)
 

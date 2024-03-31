@@ -1,12 +1,14 @@
-[gd_scene load_steps=17 format=3 uid="uid://3xjapjmocvbc"]
+[gd_scene load_steps=19 format=3 uid="uid://3xjapjmocvbc"]
 
 [ext_resource type="Script" path="res://assets/content/content.gd" id="1_ib6uw"]
-[ext_resource type="Script" path="res://classes/visual/GameTheme.gd" id="1_y6ihv"]
-[ext_resource type="Script" path="res://classes/glyphs/Glyph.gd" id="2_i8c6a"]
-[ext_resource type="Script" path="res://classes/glyphs/ChangeSceneEffect.gd" id="3_2u8q6"]
+[ext_resource type="Script" path="res://scripts/classes/visual/GameTheme.gd" id="1_y6ihv"]
+[ext_resource type="Script" path="res://scripts/classes/glyphs/Glyph.gd" id="2_i8c6a"]
+[ext_resource type="Script" path="res://scripts/classes/glyphs/ChangeSceneEffect.gd" id="3_2u8q6"]
 [ext_resource type="Texture2D" uid="uid://c5nudfanhyrua" path="res://assets/sprites/glyphs/glyph-tri.png" id="3_26rgh"]
-[ext_resource type="Script" path="res://classes/glyphs/MultiplayerEffect.gd" id="4_8f2qj"]
+[ext_resource type="Texture2D" uid="uid://e7crn7chmw5j" path="res://assets/sprites/glyphs/glyph-brick.png" id="3_ti5oq"]
+[ext_resource type="Script" path="res://scripts/classes/glyphs/MultiplayerEffect.gd" id="4_8f2qj"]
 [ext_resource type="Texture2D" uid="uid://br5hd4k3oig2x" path="res://assets/sprites/glyphs/glyph-square.png" id="4_nonrp"]
+[ext_resource type="Texture2D" uid="uid://7qw5ptvhlqrm" path="res://assets/sprites/glyphs/glyph-plus-2.png" id="5_6o57q"]
 [ext_resource type="Texture2D" uid="uid://buangjlw8ysnr" path="res://assets/sprites/glyphs/glyph-line.png" id="5_x5lgl"]
 [ext_resource type="Texture2D" uid="uid://dkogammqs2xhk" path="res://assets/sprites/glyphs/glyph-start-game.png" id="6_m3jo2"]
 [ext_resource type="Texture2D" uid="uid://bbbqyu12r0o33" path="res://assets/sprites/glyphs/glyph-create-ip.png" id="8_jmnad"]
@@ -20,6 +22,13 @@
 [node name="BaseContent" type="Node"]
 script = ExtResource("1_ib6uw")
 
+[node name="GlyphBrick" type="Node" parent="."]
+script = ExtResource("2_i8c6a")
+glyph_name = "brick"
+color = 1
+full_card = true
+texture = ExtResource("3_ti5oq")
+
 [node name="GlyphTri" type="Node" parent="."]
 script = ExtResource("2_i8c6a")
 glyph_name = "tri"
@@ -32,17 +41,28 @@ glyph_name = "square"
 allow_autogen = true
 texture = ExtResource("4_nonrp")
 
+[node name="GlyphPlus2" type="Node" parent="."]
+script = ExtResource("2_i8c6a")
+glyph_name = "plus-2"
+rarity = 1
+value = 2
+allow_autogen = true
+texture = ExtResource("5_6o57q")
+
 [node name="GlyphLine" type="Node" parent="."]
 script = ExtResource("2_i8c6a")
 glyph_name = "line"
+rarity = 1
+value = 1
+color = 4
 allow_autogen = true
 texture = ExtResource("5_x5lgl")
 
 [node name="GlyphStartGame" type="Node" parent="."]
 script = ExtResource("2_i8c6a")
 glyph_name = "start-game"
-force_full_card = true
-force_color = 4
+color = 4
+full_card = true
 force_accents = true
 texture = ExtResource("6_m3jo2")
 
@@ -53,54 +73,50 @@ all_players = true
 [node name="GlyphCreateIP" type="Node" parent="."]
 script = ExtResource("2_i8c6a")
 glyph_name = "create-ip"
-force_full_card = true
-force_color = 4
+color = 4
+full_card = true
 force_accents = true
 texture = ExtResource("8_jmnad")
 
 [node name="Node" type="Node" parent="GlyphCreateIP"]
 script = ExtResource("3_2u8q6")
 change_to = "createip"
-all_players = null
 
 [node name="GlyphJoinIP" type="Node" parent="."]
 script = ExtResource("2_i8c6a")
 glyph_name = "join-ip"
-force_full_card = true
-force_color = 4
+color = 4
+full_card = true
 force_accents = true
 texture = ExtResource("9_bkxaa")
 
 [node name="Node" type="Node" parent="GlyphJoinIP"]
 script = ExtResource("3_2u8q6")
 change_to = "joinip"
-all_players = null
 
 [node name="GlyphBackMain" type="Node" parent="."]
 script = ExtResource("2_i8c6a")
 glyph_name = "back-main"
-force_full_card = true
-force_color = 4
+color = 4
+full_card = true
 force_accents = true
 texture = ExtResource("10_5q8fc")
 
 [node name="Node" type="Node" parent="GlyphBackMain"]
 script = ExtResource("3_2u8q6")
 change_to = "mainmenu"
-all_players = null
 
 [node name="GlyphBackCreateIP" type="Node" parent="."]
 script = ExtResource("2_i8c6a")
 glyph_name = "back-create-ip"
-force_full_card = true
-force_color = 4
+color = 4
+full_card = true
 force_accents = true
 texture = ExtResource("11_f75cc")
 
 [node name="Node" type="Node" parent="GlyphBackCreateIP"]
 script = ExtResource("3_2u8q6")
 change_to = "createip"
-all_players = null
 
 [node name="Node2" type="Node" parent="GlyphBackCreateIP"]
 script = ExtResource("4_8f2qj")
@@ -109,15 +125,14 @@ function = 2
 [node name="GlyphBackJoinIP" type="Node" parent="."]
 script = ExtResource("2_i8c6a")
 glyph_name = "back-join-ip"
-force_full_card = true
-force_color = 4
+color = 4
+full_card = true
 force_accents = true
 texture = ExtResource("13_kolg0")
 
 [node name="Node" type="Node" parent="GlyphBackJoinIP"]
 script = ExtResource("3_2u8q6")
 change_to = "joingame"
-all_players = null
 
 [node name="Node2" type="Node" parent="GlyphBackJoinIP"]
 script = ExtResource("4_8f2qj")
@@ -126,15 +141,14 @@ function = 3
 [node name="GlyphLobbyCreated" type="Node" parent="."]
 script = ExtResource("2_i8c6a")
 glyph_name = "lobby-created"
-force_full_card = true
-force_color = 4
+color = 4
+full_card = true
 force_accents = true
 texture = ExtResource("13_bpgoa")
 
 [node name="Node" type="Node" parent="GlyphLobbyCreated"]
 script = ExtResource("3_2u8q6")
 change_to = "lobbycreated"
-all_players = null
 
 [node name="Node2" type="Node" parent="GlyphLobbyCreated"]
 script = ExtResource("4_8f2qj")
@@ -142,15 +156,14 @@ script = ExtResource("4_8f2qj")
 [node name="GlyphLobbyJoined" type="Node" parent="."]
 script = ExtResource("2_i8c6a")
 glyph_name = "lobby-joined"
-force_full_card = true
-force_color = 4
+color = 4
+full_card = true
 force_accents = true
 texture = ExtResource("14_k7wkr")
 
 [node name="Node" type="Node" parent="GlyphLobbyJoined"]
 script = ExtResource("3_2u8q6")
 change_to = "lobbyjoined"
-all_players = null
 
 [node name="Node2" type="Node" parent="GlyphLobbyJoined"]
 script = ExtResource("4_8f2qj")

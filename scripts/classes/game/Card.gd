@@ -44,8 +44,8 @@ func _process(delta):
 
 func _init(gly1:String, gly2 = "empty", col1 = -1, col2 = -1):
 	glyphs = [Global.get_glyph(gly1).duplicate(), Global.get_glyph(gly2).duplicate()]
-	glyphs[0].color = col1
-	glyphs[1].color = col2
+	if col1 >= 0: glyphs[0].color = col1
+	if col2 >= 0: glyphs[1].color = col2
 	
 	glyphs.sort_custom(func(a, b): return a.value > b.value)
 	
@@ -63,6 +63,8 @@ func reset_offsets():
 	yoffset = 0
 	rotoffset = 0
 	scloffset = 0
+
+func to_rpc(): return [glyphs[0].glyph_name, glyphs[0].glyph_name, colors(0), colors(1)]
 
 func copy(): return new(glyphs[0].glyph_name, glyphs[1].glyph_name, colors(0), colors(1))
 

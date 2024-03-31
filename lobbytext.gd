@@ -1,7 +1,7 @@
 extends Label
 
 
-func _process(delta):
+func _process(_delta):
 	var p = Multiplayer.get_children().filter(func(x): return x is Player)
 	
 	text = ""
