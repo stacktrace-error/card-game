@@ -1,4 +1,4 @@
-extends Effect
+extends Node
 
 @export var change_to = "game"
 @export var all_players = false

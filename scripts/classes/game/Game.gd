@@ -25,20 +25,23 @@ func _ready():
 	Hand.clear_cards()
 	if menu_name and Global.menu_cards.has(menu_name):
 		var arr = Array()
-		for i:Card in Global.menu_cards[menu_name]: arr.append(i.copy())
+		for i in Global.menu_cards[menu_name]: arr.append(i.copy())
 		Hand.draw_array(arr)
 	
 	Hand.draw_array(starting_hand)
 	Hand.draw_count(starting_count)
 	
-	child_entered_tree.connect(func(_x): if get_child_count() > 16: get_child(0).free())
-	for i in Multiplayer.players(): if i.name != "1": players.append(i.name.to_int())
+	child_entered_tree.connect(func(_x): 
+		if get_child_count() > 16: get_child(0).free()
+		_x.flip = 1
+	)
+	for i in Multiplayer.get_children(): if i.name != "1": players.append(i.name.to_int())
 
 func _init(start_count = 0, start_hand = [], glyphs = []):
 	starting_count = start_count
 	starting_hand = start_hand
 	
-	if true: #TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO 
+	if true: #TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO 
 		for i in Global.glyphs:
 			if(i.allow_autogen):
 				var v = i.rarity
@@ -50,7 +53,7 @@ func _init(start_count = 0, start_hand = [], glyphs = []):
 
 
 #region logic
-func _process(_delta): #TODO HOVER TO VIEW CARDS TODO HOVER TO VIEW CARDS TODO HOVER TO VIEW CARDS TODO HOVER TO VIEW CARDS TODO HOVER TO VIEW CARDS 
+func _process(_delta): #TODO HOVER TO VIEW CARDS TODO HOVER TO VIEW CARDS TODO HOVER TO VIEW CARDS TODO HOVER TO VIEW CARDS
 	for i in get_children():
 		if i is Card: 
 			i.position = i.position.lerp(Vector2.ZERO, _delta * 20)
@@ -61,11 +64,11 @@ func _process(_delta): #TODO HOVER TO VIEW CARDS TODO HOVER TO VIEW CARDS TODO H
 			i.rotoffset = (i.get_angle_to(Vector2.ZERO) + (PI*0.5)) * dst
 
 @rpc("any_peer", "call_local")
-func play(_card, to_rpc:Array):
+func play(_card, to_array:Array):
 	var c = _card
 	
 	if not c is Card:
-		c = Global.card_from_rpc(to_rpc)
+		c = Global.card_from_array(to_array)
 		Global.tmpv1[0] = 0
 		Global.tmpv1[1] = -2000
 		c.position = Global.tmpv1
@@ -75,15 +78,9 @@ func play(_card, to_rpc:Array):
 	
 	c.rotation += randf_range(-0.1, 0.1)
 	
-	print(players)
-	var g = ""
-	for i in 15:
-		g += str(player_index, ", ")
-		player_index = index_in_x_turns(turn_step)
-	print(g)
-	
 	c.play()
-	Global.SOUND_CARD_PlAY.play()
+	Global.SOUND_CARD_PLAY.play()
+	player_index = index_in_x_turns(turn_step)
 
 func index_in_x_turns(turns):
 	if players.size() == 1: return 0
@@ -95,8 +92,8 @@ func index_in_x_turns(turns):
 	return n
 
 func respond_play(_card:Card):
-	if true: #Multiplayer.id() == current_player():
-		play.rpc(_card, _card.to_rpc()) 
+	if Multiplayer.id() == current_player():
+		play.rpc(_card, _card.to_array())
 		finish_play.emit(_card, true)
 		return
 	finish_play.emit(_card, false)
@@ -104,6 +101,8 @@ func respond_play(_card:Card):
 func player_in_x_turns(turns): return players[index_in_x_turns(turns)]
 
 func current_player(): return players[player_index]
+
+@rpc("any_peer", "call_local") func set_turn_step(step:int): turn_step = step
 #endregion
 
 
@@ -124,7 +123,7 @@ func random_glyph(min_rarity = 0, brick_chance = 0.0, no_fulls = false):
 		for i in by_rarity.size():
 			counter = clampf(counter + rarity_chances[i], 0.0, 100.0) #advance by next tier's chance
 			if counter > rand and by_rarity[i]: return by_rarity[i].pick_random() #pick current tier if advanced high enough
-	print("random_glyph() has hit 25 reroll cap.")
+	push_warning("random_glyph() has hit 25 reroll cap.")
 	return Global.GLYPH_EMPTY
 
 func card(min_rarity = 0, brick_chance = 0.0):

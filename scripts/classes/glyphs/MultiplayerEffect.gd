@@ -1,4 +1,4 @@
-extends Effect
+extends Node
 
 @export var function = 0
 

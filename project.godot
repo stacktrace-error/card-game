@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="cards"
-run/main_scene="res://menus/mainmenu.tscn"
+run/main_scene="res://scenes/mainmenu.tscn"
 config/features=PackedStringArray("4.2", "GL Compatibility")
 config/icon="res://icon.png"
 
@@ -20,18 +20,19 @@ config/icon="res://icon.png"
 Settings="*res://scripts/autoload/Settings.gd"
 Global="*res://scripts/autoload/Global.gd"
 BaseContent="*res://assets/content/base_content.tscn"
-Multiplayer="*res://scripts/autoload/MultiplayerHandler.gd"
-Hand="*res://hand.tscn"
+Multiplayer="*res://scripts/autoload/Multiplayer.gd"
+Camera2d="*res://scenes/camera_2d.tscn"
+Hand="*res://scenes/hand.tscn"
 Utilities="*res://scripts/autoload/Utilities.gd"
-Camera2d="*res://camera_2d.tscn"
 
 [display]
 
+window/stretch/mode="canvas_items"
 window/vsync/vsync_mode=0
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/gut/plugin.cfg")
+enabled=PackedStringArray()
 
 [input]
 

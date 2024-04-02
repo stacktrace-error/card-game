@@ -16,11 +16,11 @@ var hovered_card : Card:
 		hovered_card = value
 
 var draw_speed = 10
-var max_width = 5500.0
+var max_width = 4400.0
 var spacing = 350.0:
-	get: return min(spacing, 1000.0 if card_count < 2 else max_width / (card_count - 1))
+	get: return min(spacing * Settings.card_scale, 1000.0 if card_count < 2 else max_width / (card_count - 1))
 var offset = 850.0:
-	get: return 0.0 if not hovered_card else offset * 0.5 + 350.0 - spacing
+	get: return 0.0 if not hovered_card else (offset * 0.5 + 350.0) * Settings.card_scale - spacing
 
 
 #region cards
@@ -29,37 +29,30 @@ func _input(event):
 	if(event.is_action_pressed("draw")): draw_count(1)
 
 func _process(delta):
-	Global.tmpv1 = Vector2.ZERO
 	cards = get_children().filter(func(x): return x is Card)
 	card_count = cards.size()
 	
 	# position the cards
-	if(card_count > 1):
-		Global.tmpv1[0] = -(spacing * (card_count - 1) * 0.5) - offset
+	Global.tmpv1[0] = -(spacing * (card_count - 1) * 0.5) - offset
+	Global.tmpv1[1] = Global.CARD_DRAW_OFFSET[1] * Settings.card_scale
+	
+	for i in card_count:
+		var c = cards[i]
+		# if hovered card, add an offset
+		if c == hovered_card: Global.tmpv1[0] += offset
 		
-		for i in card_count:
-			var c = cards[i]
-			# if hovered card, add an offset
-			if c == hovered_card: Global.tmpv1[0] += offset
-			
-			# move current card
-			c.position = c.position.lerp(Global.tmpv1, delta * draw_speed)
-			c.yoffset = c.hov * -200
-			c.scloffset = c.hov * 0.1
-			
-			# next card's intended position
-			Global.tmpv1[0] += spacing
-			Global.tmpv1[1] = 0
-			if c == hovered_card: Global.tmpv1[0] += offset # must be added twice
+		# move current card
+		c.position = c.position.lerp(Global.tmpv1, delta * draw_speed)
+		c.yoffset = c.hov * -200
+		c.scloffset = c.hov * 0.1
+		c.flip = clamp(c.flip + (delta * draw_speed * 0.15), 0.0, 1.0)
+		
+		# next card's intended position
+		Global.tmpv1[0] += spacing
+		if c == hovered_card: Global.tmpv1[0] += offset # must be added twice
 	
-	else: if card_count: 
-		cards[0].position = cards[0].position.lerp(Global.tmpv1, delta * draw_speed)
-		Global.tmpv1[0] = spacing
-	
-	# draw new cards
-	if card_count and cards[-1].flip < 1: cards[-1].flip += (delta * draw_speed * 0.25) 
-	
-	else: if not to_draw.is_empty():
+	# draw new cards	
+	if (not to_draw.is_empty()) and (cards.is_empty() or cards[-1].flip == 1.0):
 		var drawn = to_draw.pop_front()
 		if not drawn is Card: return
 		
@@ -74,7 +67,9 @@ func clear_cards():
 	for i in to_draw: i.call_deferred("free")
 	to_draw.clear()
 
-func draw_count(count:int): if Global.game: for i in count: to_draw.append(Global.game.card())
+@rpc("any_peer") func draw_count(count:int): if Global.game: for i in count: to_draw.append(Global.game.card())
+
+@rpc("any_peer") func draw_arrays(cards_as_arrays:Array): draw_array(Global.cards_from_arrays(cards_as_arrays))
 
 func draw_array(array:Array): to_draw.append_array(array)
 #endregion

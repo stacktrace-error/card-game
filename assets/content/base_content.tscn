@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://3xjapjmocvbc"]
+[gd_scene load_steps=23 format=3 uid="uid://3xjapjmocvbc"]
 
 [ext_resource type="Script" path="res://assets/content/content.gd" id="1_ib6uw"]
 [ext_resource type="Script" path="res://scripts/classes/visual/GameTheme.gd" id="1_y6ihv"]
@@ -11,9 +11,13 @@
 [ext_resource type="Texture2D" uid="uid://7qw5ptvhlqrm" path="res://assets/sprites/glyphs/glyph-plus-2.png" id="5_6o57q"]
 [ext_resource type="Texture2D" uid="uid://buangjlw8ysnr" path="res://assets/sprites/glyphs/glyph-line.png" id="5_x5lgl"]
 [ext_resource type="Texture2D" uid="uid://dkogammqs2xhk" path="res://assets/sprites/glyphs/glyph-start-game.png" id="6_m3jo2"]
+[ext_resource type="Script" path="res://scripts/classes/glyphs/DrawCardEffect.gd" id="7_lr7jp"]
+[ext_resource type="Texture2D" uid="uid://bhmtimklqb7nb" path="res://assets/sprites/glyphs/glyph-plus-brick.png" id="8_cdx7m"]
 [ext_resource type="Texture2D" uid="uid://bbbqyu12r0o33" path="res://assets/sprites/glyphs/glyph-create-ip.png" id="8_jmnad"]
 [ext_resource type="Texture2D" uid="uid://bwmqw3yntgp56" path="res://assets/sprites/glyphs/glyph-join-ip.png" id="9_bkxaa"]
+[ext_resource type="Texture2D" uid="uid://bylr2gn268imw" path="res://assets/sprites/glyphs/glyph-reverse.png" id="9_ywsdv"]
 [ext_resource type="Texture2D" uid="uid://dp1iyfsjtoupv" path="res://assets/sprites/glyphs/glyph-back-main.png" id="10_5q8fc"]
+[ext_resource type="Script" path="res://scripts/classes/glyphs/TurnEffect.gd" id="10_rh5vk"]
 [ext_resource type="Texture2D" uid="uid://dlujlh3t8g4j" path="res://assets/sprites/glyphs/glyph-back-create-ip.png" id="11_f75cc"]
 [ext_resource type="Texture2D" uid="uid://dbjv3nqbn6266" path="res://assets/sprites/glyphs/glyph-lobby-created.png" id="13_bpgoa"]
 [ext_resource type="Texture2D" uid="uid://c56qkemse1wdd" path="res://assets/sprites/glyphs/glyph-back-join-ip.png" id="13_kolg0"]
@@ -48,6 +52,33 @@ rarity = 1
 value = 2
 allow_autogen = true
 texture = ExtResource("5_6o57q")
+
+[node name="DrawCardEffect" type="Node" parent="GlyphPlus2"]
+script = ExtResource("7_lr7jp")
+draw_amount = 2
+
+[node name="GlyphPlusBrick" type="Node" parent="."]
+script = ExtResource("2_i8c6a")
+glyph_name = "plus-brick"
+rarity = 1
+value = 2
+allow_autogen = true
+texture = ExtResource("8_cdx7m")
+
+[node name="DrawCardEffect" type="Node" parent="GlyphPlusBrick"]
+script = ExtResource("7_lr7jp")
+cards_as_arrays = [["brick", "empty", 0, 0]]
+
+[node name="GlyphReverse" type="Node" parent="."]
+script = ExtResource("2_i8c6a")
+glyph_name = "reverse"
+rarity = 1
+value = 2
+allow_autogen = true
+texture = ExtResource("9_ywsdv")
+
+[node name="TurnEffect" type="Node" parent="GlyphReverse"]
+script = ExtResource("10_rh5vk")
 
 [node name="GlyphLine" type="Node" parent="."]
 script = ExtResource("2_i8c6a")

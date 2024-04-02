@@ -23,7 +23,7 @@ var scloffset = 0
 var hovering = false
 
 # Ranges from 0-1.
-@export var flip = 0
+var flip = 0
 var hover = 0
 
 # Used by card drawning.
@@ -64,7 +64,7 @@ func reset_offsets():
 	rotoffset = 0
 	scloffset = 0
 
-func to_rpc(): return [glyphs[0].glyph_name, glyphs[0].glyph_name, colors(0), colors(1)]
+func to_array(): return [glyphs[0].glyph_name, glyphs[1].glyph_name, colors(0), colors(1)]
 
 func copy(): return new(glyphs[0].glyph_name, glyphs[1].glyph_name, colors(0), colors(1))
 
@@ -72,4 +72,4 @@ func play(): for i in glyphs: i.trigger()
 
 func colors(index:int): return glyphs[index].color
 
-func _draw(): if(Settings.game_theme): Settings.game_theme.draw_card(self, xoffset, yoffset, rotoffset, scl + scloffset)
+func _draw(): if(Settings.game_theme): Settings.game_theme.draw_card(self, xoffset, yoffset, rotoffset, (scl + scloffset) * Settings.card_scale)

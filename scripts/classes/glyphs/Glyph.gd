@@ -34,5 +34,4 @@ func _ready():
 func allow_placement():
 	return true
 
-func trigger():
-	for i in get_children(): i.trigger()
+func trigger(): for i in get_children(): i.trigger()

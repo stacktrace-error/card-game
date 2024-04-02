@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://dx0fg22abudca"]
 
 [ext_resource type="Script" path="res://scripts/classes/game/Game.gd" id="1_yd8g4"]
-[ext_resource type="Script" path="res://lobbytext.gd" id="2_67tbq"]
+[ext_resource type="Script" path="res://scripts/randomobjects/lobbytext.gd" id="2_67tbq"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_ehr40"]
 line_spacing = 20.0
