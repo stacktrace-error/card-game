@@ -29,7 +29,9 @@ script = ExtResource("1_ib6uw")
 [node name="GlyphBrick" type="Node" parent="."]
 script = ExtResource("2_i8c6a")
 glyph_name = "brick"
+rarity = 1
 color = 1
+allow_autogen = true
 full_card = true
 texture = ExtResource("3_ti5oq")
 

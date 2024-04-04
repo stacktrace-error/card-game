@@ -1,5 +1,7 @@
 extends Node
 
+signal scene_changed
+
 const CARD_SIZE = Vector2(822, 1122)
 const CARD_DRAW_OFFSET = Vector2(-411, -561)
 var CARD_SHAPE = RectangleShape2D.new()
@@ -53,6 +55,8 @@ func deferred_change_scene(_name):
 	if sceneless_menus.has(_name): game = sceneless_menus[_name].duplicate()
 	else: game = ResourceLoader.load("res://scenes/" + _name + ".tscn").instantiate()
 	get_tree().root.add_child(game, true)
+	
+	scene_changed.emit()
 
 func connection(_game):
 	Hand.attempt_play.connect(_game.respond_play)
@@ -74,7 +78,7 @@ func content_load():
 #endregion
 
 func _ready():
-	CARD_SHAPE.set_size(CARD_SIZE)
+	CARD_SHAPE.set_size(CARD_SIZE * Settings.card_scale)
 	CARD_COLLISION.set_shape(CARD_SHAPE)
 
 func card_from_array(c:Array): return Card.new(c[0], c[1], c[2], c[3])

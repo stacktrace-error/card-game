@@ -15,15 +15,30 @@ signal unhovered(card)
 		scale = Global.tmpv1
 		scl = value
 
-var xoffset = 0
-var yoffset = 0
-var rotoffset = 0
-var scloffset = 0
+var xoffset = 0:
+	set(value):
+		xoffset = value
+		queue_redraw()
+var yoffset = 0:
+	set(value):
+		yoffset = value
+		queue_redraw()
+var rotoffset = 0:
+	set(value):
+		rotoffset = value
+		queue_redraw()
+var scloffset = 0:
+	set(value):
+		scloffset = value
+		queue_redraw()
 
 var hovering = false
 
 # Ranges from 0-1.
-var flip = 0
+var flip = 0:
+	set(value):
+		flip = value
+		queue_redraw()
 var hover = 0
 
 # Used by card drawning.
@@ -40,7 +55,6 @@ func _process(delta):
 	else:
 		if(hover > 0.01): hover -= delta * 6
 		else: hover = 0
-	queue_redraw()
 
 func _init(gly1:String, gly2 = "empty", col1 = -1, col2 = -1):
 	glyphs = [Global.get_glyph(gly1).duplicate(), Global.get_glyph(gly2).duplicate()]
@@ -72,4 +86,4 @@ func play(): for i in glyphs: i.trigger()
 
 func colors(index:int): return glyphs[index].color
 
-func _draw(): if(Settings.game_theme): Settings.game_theme.draw_card(self, xoffset, yoffset, rotoffset, (scl + scloffset) * Settings.card_scale)
+func _draw(): if(Settings.game_theme): Settings.game_theme.draw_card(self, xoffset * Settings.card_scale, yoffset * Settings.card_scale, rotoffset, (scl + scloffset) * Settings.card_scale)

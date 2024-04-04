@@ -18,12 +18,12 @@ var pile_back = load_tex("pile-back")
 var trns = Transform2D()
 
 # background
-const width = 14000.0
-const height = 8000.0
-const lines = Vector2(6000.0, 6000.0)
-const line_spacing = 400.0
-const line_speed = 0.1
-const line_width = 200.0
+const width = 2800.0
+const height = 1600.0
+const lines = Vector2(1200.0, 1200.0)
+const line_spacing = 80.0
+const line_speed = 0.02
+const line_width = 40.0
 const line_width_mul_edge = 1
 const line_width_mul_middle = 0.2
 var line_width_curve = Curve.new()

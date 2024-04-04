@@ -1,18 +1,17 @@
-[gd_scene load_steps=4 format=3 uid="uid://dy32p6db4rvhw"]
+[gd_scene load_steps=5 format=3 uid="uid://dy32p6db4rvhw"]
 
 [ext_resource type="Script" path="res://scripts/randomobjects/background.gd" id="1_kkldo"]
 [ext_resource type="Script" path="res://scripts/randomobjects/playerlabel.gd" id="2_iodum"]
+[ext_resource type="Script" path="res://scripts/randomobjects/tree.gd" id="3_aoqw1"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_xucab"]
-line_spacing = 20.0
-font_size = 100
 
 [node name="Camera2D" type="Camera2D"]
-position = Vector2(0, 904)
-zoom = Vector2(0.2, 0.2)
+position = Vector2(0, 180)
 script = ExtResource("1_kkldo")
 
 [node name="Label" type="Label" parent="."]
+visible = false
 offset_left = -40.0
 offset_top = -1568.0
 offset_right = 40.0
@@ -20,3 +19,13 @@ offset_bottom = -1431.0
 label_settings = SubResource("LabelSettings_xucab")
 horizontal_alignment = 1
 script = ExtResource("2_iodum")
+
+[node name="Tree" type="Tree" parent="."]
+offset_left = -568.0
+offset_top = -320.0
+offset_right = -360.0
+offset_bottom = -192.0
+column_titles_visible = true
+allow_search = false
+hide_root = true
+script = ExtResource("3_aoqw1")

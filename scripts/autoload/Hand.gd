@@ -18,7 +18,7 @@ var hovered_card : Card:
 var draw_speed = 10
 var max_width = 4400.0
 var spacing = 350.0:
-	get: return min(spacing * Settings.card_scale, 1000.0 if card_count < 2 else max_width / (card_count - 1))
+	get: return min(spacing * Settings.card_scale, 1000.0 if card_count < 2 else max_width * Settings.card_scale / (card_count - 1))
 var offset = 850.0:
 	get: return 0.0 if not hovered_card else (offset * 0.5 + 350.0) * Settings.card_scale - spacing
 
@@ -45,7 +45,7 @@ func _process(delta):
 		c.position = c.position.lerp(Global.tmpv1, delta * draw_speed)
 		c.yoffset = c.hov * -200
 		c.scloffset = c.hov * 0.1
-		c.flip = clamp(c.flip + (delta * draw_speed * 0.15), 0.0, 1.0)
+		if c.flip < 0.9999: c.flip = clamp(c.flip + (delta * draw_speed * 0.15), 0.0, 1.0)
 		
 		# next card's intended position
 		Global.tmpv1[0] += spacing
@@ -67,7 +67,7 @@ func clear_cards():
 	for i in to_draw: i.call_deferred("free")
 	to_draw.clear()
 
-@rpc("any_peer") func draw_count(count:int): if Global.game: for i in count: to_draw.append(Global.game.card())
+@rpc("any_peer") func draw_count(count:int): for i in count: to_draw.append(Global.game.card())
 
 @rpc("any_peer") func draw_arrays(cards_as_arrays:Array): draw_array(Global.cards_from_arrays(cards_as_arrays))
 

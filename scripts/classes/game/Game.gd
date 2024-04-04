@@ -2,7 +2,6 @@ extends Node2D
 class_name Game
 
 signal finish_play(card, success)
-signal new_card(color1, color2, glyph1, glyph2, accents)
 
 @export var menu_name = "game"
 

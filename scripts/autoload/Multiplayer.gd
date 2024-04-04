@@ -13,7 +13,7 @@ func create_server():
 	peer.create_server(8998)
 	multiplayer.multiplayer_peer = peer
 	multiplayer.peer_connected.connect(add_player)
-	multiplayer.peer_disconnected.connect(func(_id): find_child(str(_id)).call_defered("free"))
+	#multiplayer.peer_disconnected.connect(func(_id): find_child(str(_id)).call_defered("free"))
 
 func close_server():
 	peer.close()
